@@ -1,0 +1,4 @@
+ip,username,password
+10.10.1.0,jozin,heslo
+192.0.0.5,zbazin,heslo
+192.0.1.10,userB,pass1
