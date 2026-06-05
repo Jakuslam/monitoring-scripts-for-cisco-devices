@@ -1,7 +1,7 @@
 """
 Script to find Access Points connected to switches.
 
-Version: 1.0.0
+Version: 1.0.1
 Author: Jakub Slama
 """
 
@@ -18,31 +18,42 @@ access_points = [
     # =========================================================================
     # CISCO SYSTEMS (Last 10+ Years: Aironet & Catalyst Series)
     # =========================================================================
-    # Catalyst 9100 Series (Wi-Fi 6 / 6E / 7 - Modern Enterprise)
-    "C9105AXI-E", "C9105AXW-E",
-    "C9115AXI-E", "C9115AXE-E",
-    "C9120AXI-E", "C9120AXE-E", "C9120AXP-E",
-    "C9124AXI-E", "C9124AXE-E", "C9124AXD-E",  # Outdoor
-    "C9130AXI-E", "C9130AXE-E",
-    "C9136I-E", "C9136E-E",                    # Wi-Fi 6E
-    "C9162I-E", "C9164I-E", "C9166I-E",        # Cisco Catalyst / Meraki Hybrid
-    "CW9166D1-E",                              # Directional Antenna
-    "CW9176I-E", "CW9176E-E",                  # Wi-Fi 7 / Catalyst Ultra
+    # Generic family catch-alls (highly effective for substring matching)
+    "AIR-AP", "AIR-LAP", "AIR-CAP", "AIR-SAP", "AIR-BR", "C9105", "C9115", 
+    "C9120", "C9124", "C9130", "C9136", "C9162", "C9164", "C9166", "CW9166", "CW9176",
 
-    # Aironet Series (Wi-Fi 5 / 802.11ac Wave 1 & 2 - Legacy Enterprise)
-    "AIR-AP1810W-E-K9", "AIR-AP1815I-E-K9", "AIR-AP1815W-E-K9", "AIR-AP1832I-E-K9",
-    "AIR-AP1852I-E-K9", "AIR-AP1852E-E-K9",
-    "AIR-CAP2702I-E-K9", "AIR-CAP2702E-E-K9",
-    "AIR-AP2802I-E-K9", "AIR-AP2802E-E-K9",
-    "AIR-CAP3702I-E-K9", "AIR-CAP3702E-E-K9",
-    "AIR-AP3802I-E-K9", "AIR-AP3802E-E-K9", "AIR-AP3802P-E-K9",
-    "AIR-AP4800-E-K9",
-    "AIR-CAP1702I-E-K9", "AIR-AP1562I-E-K9",   # Outdoor legacy
+    # Catalyst 9100 Series (Wi-Fi 6 / 6E / 7 - Modern Enterprise)
+    "C9105AXI", "C9105AXW",
+    "C9115AXI", "C9115AXE",
+    "C9120AXI", "C9120AXE", "C9120AXP",
+    "C9124AXI", "C9124AXE", "C9124AXD",        # Outdoor
+    "C9130AXI", "C9130AXE",
+    "C9136I", "C9136E",                        # Wi-Fi 6E
+    "C9162I", "C9164I", "C9166I",              # Cisco Catalyst / Meraki Hybrid
+    "CW9166D1",                                # Directional Antenna
+    "CW9176I", "CW9176E",                      # Wi-Fi 7 / Catalyst Ultra
+
+    # Aironet Series (Wi-Fi 5 / 802.11ac & Legacy 802.11n Enterprise)
+    # Trimmed suffix trailing strings (e.g. "-E-K9") to ensure matching regardless of regulatory domain (-A, -E, -I, -B, etc.)
+    "AIR-AP1240", "AIR-AP1242", "AIR-AP1242AG", "AIR-LAP1240", "AIR-LAP1242", "AIR-LAP1242AG", "AIR-AP1240AG",
+    "AIR-AP1250", "AIR-AP1260", "AIR-AP1300", "AIR-AP1400", "AIR-AP1500", "AIR-AP1520", 
+    "AIR-AP1532", "AIR-AP1542", "AIR-AP1562", "AIR-AP1572", # 1500 Outdoor Series expansion
+    "AIR-AP1602", "AIR-CAP1702", "AIR-AP1810W", "AIR-AP1815I", "AIR-AP1815W", "AIR-AP1815M", 
+    "AIR-AP1832I", "AIR-AP1852I", "AIR-AP1852E",
+    "AIR-CAP2602", "AIR-CAP2702I", "AIR-CAP2702E", "AIR-AP2802I", "AIR-AP2802E",
+    "AIR-CAP3502", "AIR-CAP3602", "AIR-CAP3702I", "AIR-CAP3702E", "AIR-AP3802I", "AIR-AP3802E", "AIR-AP3802P",
+    "AIR-AP4800", "AIR-AP3100", "AIR-AP3500", 
+
+    # Explicit older / historical / Small Business lines
+    "AIR-AP700", "AIR-AP700W", "AIRONET 700", "AIRONET 700W",
+    "AIR-AP1000", "AIRONET 1000", "AIR-AP1040", "AIR-AP1100", "AIR-AP1130", "AIR-AP1140", "AIR-AP1200", "AIR-AP1230",
+    "AIRPROVISION", "AP500", "SMALL BUSINESS AP", "CISCO WAP",
 
     # Cisco Meraki (Cloud-Managed)
+    "MR16", "MR18", "MR24", "MR32", # Older but very common Meraki
     "MR33", "MR36", "MR42", "MR44", "MR45", "MR46", "MR52", "MR53", "MR56",
-    "MR70", "MR74", "MR76", "MR84", "MR86",    # Outdoor Meraki
-    "MR57", "MR78", "MR28", "GR10", "GR60",    # Wi-Fi 6E / Go Series
+    "MR70", "MR74", "MR76", "MR84", "MR86",     # Outdoor Meraki
+    "MR57", "MR78", "MR28", "GR10", "GR60",     # Wi-Fi 6E / Go Series
 
     # Cisco Small Business (WAP Series)
     "WAP121", "WAP150", "WAP321", "WAP371", "WAP551", "WAP561", "WAP571", "WAP581",
@@ -101,7 +112,6 @@ access_points = [
     "FAP-231F", "FAP-431F", "FAP-831F",        # Wi-Fi 6
     "FAP-431G", "FAP-433G"                     # Wi-Fi 6E / 7
 ]
-
 
 def is_access_point(ap: Dict) -> bool:
     """Return True if the discovered neighbor matches a known AP model and has an IP.

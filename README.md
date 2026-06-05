@@ -54,6 +54,24 @@ python finding_AP.py [devices.csv]
 - The script parses `show cdp neighbors detail` and `show lldp neighbors detail` output.
 - Access points are detected by matching known vendor/model strings against neighbor names and descriptions.
 
+### Recognizable Access Points
+
+The script currently recognizes common AP models and families, including:
+
+- Cisco Aironet: 700 / 700W, 1000, 1040, 1100, 1130 AG, 1140, 1200, 1230 AG, 1240 / 1240 AG, 1250, 1260, 1300 Bridge, 1400 Bridge, 1500 Lightweight Outdoor Mesh, 1520 Lightweight Outdoor Mesh, 1600, 1810, 1830, 1850, 2800, 3700, 3800, 4800
+- Cisco Catalyst Wi-Fi APs: 9100 series, 9130, 9160, 9166, 9176
+- Cisco Meraki: MR series (MR33, MR36, MR42, MR44, MR45, MR46, MR52, MR53, MR56, MR57, MR70, MR74, MR76, MR78, MR84, MR86), GR10, GR60
+- Cisco Small Business: WAP121, WAP150, WAP321, WAP371, WAP551, WAP561, WAP571, WAP581, AP500
+- Aruba / HPE: AP-205, AP-215, AP-225, AP-303, AP-305, AP-315, AP-325, AP-335, AP-505, AP-515, AP-535, AP-555, AP-615, AP-635, AP-655, AP-735, AP-755, IAP-205-RW, IAP-315-RW, IAP-325-RW
+- Ubiquiti UniFi: UAP-AC-LITE, UAP-AC-LR, UAP-AC-PRO, UAP-AC-EDU, UAP-AC-HD, UAP-AC-SHD, U6-Lite, U6-LongRange, U6-Pro, U6-Enterprise, U6-Mesh, U7-Pro, U7-Pro-Wall, U7-Outdoor
+- Ruckus / CommScope: ZoneFlex R310/R510/R610/R710/R720, R350/R550/R650/R750/R850, R760/R770, T310/T750
+- TP-Link Omada: EAP225, EAP245, EAP265-HD, EAP610, EAP620-HD, EAP650, EAP660-HD, EAP670, EAP690E-HD, EAP773, EAP783
+- Extreme Networks / Aerohive: AP122, AP130, AP230, AP250, AP305C, AP410C, AP510C, AP650X, AP4000, AP5010
+- Netgear: WAC510, WAC540, WAC720, WAC730, WAX214, WAX610, WAX620, WAX630, WAX630E
+- Fortinet FortiAP: FAP-221E, FAP-321E, FAP-421E, FAP-231F, FAP-431F, FAP-831F, FAP-431G, FAP-433G
+
+The list is not exhaustive; the script matches these models by substring in neighbor names and descriptions.
+
 ## find_unused_ports.py
 
 ### Purpose
